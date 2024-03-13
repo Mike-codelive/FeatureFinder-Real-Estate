@@ -1,11 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/assets/images/logo-white.png";
 import profileDefault from "@/assets/images/profile.png";
-// import { FaGoogle } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -14,8 +14,20 @@ const Navbar = () => {
 
   const pathname = usePathname();
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
-    <nav className="bg-blue-700 border-b border-blue-500">
+    <nav className="bg-teal-700 border-b border-teal-500">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-20 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
@@ -53,7 +65,7 @@ const Navbar = () => {
               <Image className="h-10 w-auto" src={logo} alt="PropertyPulse" />
 
               <span className="hidden md:block text-white text-2xl font-bold ml-2">
-                PropertyPulse
+                Real State
               </span>
             </Link>
             {/* <!-- Desktop Menu Hidden below md screens --> */}
@@ -94,7 +106,7 @@ const Navbar = () => {
             <div className="hidden md:block md:ml-6">
               <div className="flex items-center">
                 <button className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2">
-                  {/* <FaGoogle className="text-white mr-2" /> */}
+                  <FaGoogle className="text-white mr-2" />
                   <span>Login or Register</span>
                 </button>
               </div>
@@ -229,6 +241,7 @@ const Navbar = () => {
 
             {!isLoggedIn && (
               <button className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 my-4">
+                <FaGoogle className="text-white mr-2" />
                 <span>Login or Register</span>
               </button>
             )}
