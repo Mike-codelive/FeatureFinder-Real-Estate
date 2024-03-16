@@ -4,27 +4,27 @@ import { useState, useEffect } from "react";
 const PropertyAddForm = () => {
   const [mounted, setMounted] = useState(false);
   const [fields, setFields] = useState({
-    type: "Apartment",
-    name: "Test Property",
+    type: "",
+    name: "",
     description: "",
     location: {
       street: "",
-      city: "Test City",
-      state: "Test State",
+      city: "",
+      state: "",
       zipcode: "",
     },
-    beds: "3",
-    baths: "2",
-    square_feet: "1800",
+    beds: "",
+    baths: "",
+    square_feet: "",
     amenities: [],
     rates: {
       weekly: "",
-      monthly: "2000",
+      monthly: "",
       nightly: "",
     },
     seller_info: {
       name: "",
-      email: "test@test.com",
+      email: "",
       phone: "",
     },
     images: [],
@@ -37,7 +37,6 @@ const PropertyAddForm = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Check if nested property
     if (name.includes(".")) {
       const [outerKey, innerKey] = name.split(".");
 
@@ -49,7 +48,6 @@ const PropertyAddForm = () => {
         },
       }));
     } else {
-      // Not nested
       setFields((prevFields) => ({
         ...prevFields,
         [name]: value,
@@ -59,14 +57,11 @@ const PropertyAddForm = () => {
   const handleAmenitiesChange = (e) => {
     const { value, checked } = e.target;
 
-    // Clone the current array
     const updatedAmenites = [...fields.amenities];
 
     if (checked) {
-      // Add value to array
       updatedAmenites.push(value);
     } else {
-      // Remove value from array
       const index = updatedAmenites.indexOf(value);
 
       if (index !== -1) {
@@ -74,7 +69,6 @@ const PropertyAddForm = () => {
       }
     }
 
-    // Update state with updated array
     setFields((prevFields) => ({
       ...prevFields,
       amenities: updatedAmenites,
@@ -84,15 +78,12 @@ const PropertyAddForm = () => {
   const handleImageChange = (e) => {
     const { files } = e.target;
 
-    // Clone images array
     const updatedImages = [...fields.images];
 
-    // Add new files to the array
     for (const file of files) {
       updatedImages.push(file);
     }
 
-    // Update state with array of images
     setFields((prevFields) => ({
       ...prevFields,
       images: updatedImages,
