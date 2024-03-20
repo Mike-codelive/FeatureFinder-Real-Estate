@@ -12,8 +12,12 @@ const PropertyContactForm = ({ property }) => {
   const [phone, setPhone] = useState("");
   const [wasSubmitted, setWasSubmitted] = useState(false);
 
-  if (session.user.id === property.owner) {
-    return <p>You cannot contact yourself for this property</p>;
+  if (session?.user?.id === property.owner) {
+    return (
+      <p className="text-yellow-500 mb-4">
+        You cannot contact yourself for this property
+      </p>
+    );
   }
 
   const handleSubmit = async (e) => {
