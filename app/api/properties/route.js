@@ -73,6 +73,7 @@ export const POST = async (request) => {
         phone: formData.get("seller_info.phone"),
       },
       owner: userId,
+      is_featured: formData.get("is_featured") === "true",
     };
 
     const imageUploadPromises = [];

@@ -33,6 +33,7 @@ const PropertyEditForm = () => {
       email: "",
       phone: "",
     },
+    is_featured: false,
   });
   const [loading, setLoading] = useState(true);
 
@@ -576,6 +577,29 @@ const PropertyEditForm = () => {
             placeholder="Phone"
             value={fields.seller_info.phone}
             onChange={handleChange}
+          />
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="is_featured"
+            className="inline-block text-gray-700 font-bold mb-2 mr-5"
+          >
+            Featured Property ?
+          </label>
+          <input
+            type="checkbox"
+            id="is_featured"
+            name="is_featured"
+            value={true}
+            className="mr-2"
+            checked={fields.is_featured}
+            onChange={(e) =>
+              setFields((prevFields) => ({
+                ...prevFields,
+                is_featured: e.target.checked,
+              }))
+            }
           />
         </div>
 

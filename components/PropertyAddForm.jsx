@@ -28,7 +28,15 @@ const PropertyAddForm = () => {
       phone: "",
     },
     images: [],
+    is_featured: false,
   });
+
+  const [selectedFiles, setSelectedFiles] = useState([]);
+
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files);
+    setSelectedFiles(files);
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -542,6 +550,28 @@ const PropertyAddForm = () => {
             onChange={handleChange}
           />
         </div>
+        <div className="mb-4">
+          <label
+            htmlFor="is_featured"
+            className="inline-block text-gray-700 font-bold mb-2 mr-5"
+          >
+            Featured Property ?
+          </label>
+          <input
+            type="checkbox"
+            id="is_featured"
+            name="is_featured"
+            value={true}
+            className="mr-2"
+            checked={fields.is_featured}
+            onChange={(e) =>
+              setFields((prevFields) => ({
+                ...prevFields,
+                is_featured: e.target.checked,
+              }))
+            }
+          />
+        </div>
 
         <div className="mb-4">
           <label
@@ -550,16 +580,29 @@ const PropertyAddForm = () => {
           >
             Images (Select up to 4 images)
           </label>
-          <input
-            type="file"
-            id="images"
-            name="images"
-            className="border rounded w-full py-2 px-3"
-            accept="image/*"
-            multiple
-            onChange={handleImageChange}
-            required
-          />
+          <div className="relative">
+            <input
+              type="file"
+              id="images"
+              name="images"
+              className="hidden"
+              accept="image/*"
+              multiple
+              onChange={handleFileChange}
+              required
+            />
+            <label
+              htmlFor="images"
+              className="border rounded w-full py-2 px-3 bg-blue-500 text-white cursor-pointer block text-center"
+            >
+              Select Images
+            </label>
+            {selectedFiles.length > 0 && (
+              <div className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center">
+                {selectedFiles.length}
+              </div>
+            )}
+          </div>
         </div>
 
         <div>

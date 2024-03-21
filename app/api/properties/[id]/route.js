@@ -104,6 +104,7 @@ export const PUT = async (request, { params }) => {
         phone: formData.get("seller_info.phone"),
       },
       owner: userId,
+      is_featured: formData.get("is_featured") === "true",
     };
 
     const updatedProperty = await Property.findByIdAndUpdate(id, propertyData);

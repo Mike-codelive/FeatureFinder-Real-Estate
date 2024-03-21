@@ -78,7 +78,7 @@ const PropertySchema = new Schema(
     ],
     is_featured: {
       type: Boolean,
-      default: false,
+      // default: false,
     },
   },
   {
